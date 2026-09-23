@@ -3,10 +3,9 @@
 Official research code for **WEAVER: Global Weather Forecasting with
 Cross-Variable Interactions and Region-Guided Expert Routing**.
 
-This release intentionally contains only the paper's WEAVER model: training
-from random initialization, checkpoint evaluation, low-level single-step
-diagnostics, and physical-unit autoregressive prediction. It does not contain
-exploratory variants, ablation code, plots, logs, or experiment outputs.
+This repository provides the paper's WEAVER implementation, including training
+from random initialization, checkpoint evaluation, single-step diagnostics,
+and physical-unit autoregressive prediction.
 
 ## Architecture
 
@@ -17,7 +16,7 @@ Click the figure to open the vector PDF.
 ## What is included
 
 ```text
-weaver_core/
+Weaver/
 ├── configs/weaver.yaml         # paper training configuration
 ├── train.py                    # Lightning/FSDP training
 ├── predict.py                  # physical-unit autoregressive forecast
@@ -51,8 +50,6 @@ public configuration are simply named `Weaver`.
 | variable-to-spatial bridge | `weaver.models.backbone.VariableToSpatialBridge` |
 | RP-MoE | `weaver.models.backbone.RegionalPriorMoEBlock` and `weaver.models.rp_moe.SoftRegionalPriorMoE` |
 | fixed region map and prior | `assets/region_maps/` and the registered model buffers/parameters |
-
-The release does not ship the exploratory upstream namespace.
 
 ### Design and compute
 
@@ -224,13 +221,12 @@ shape. A JSON sidecar records the horizon, participating base intervals,
 checkpoint, shape, and variables. To export an input from the project HDF5
 format, use `scripts/export_h5_input.py` inside a compute job.
 
-`infer.py` is retained only for architecture/checkpoint diagnostics. Its input
-and output are normalized tensors, and its output is one predicted increment,
-not a complete weather forecast.
+`infer.py` provides architecture and checkpoint diagnostics using normalized
+tensors. It produces one predicted increment; use `predict.py` for complete
+physical-unit forecasts.
 
 The released checkpoint already uses the current module names and requires no
-key migration. Historical experimental checkpoints are outside this compact
-release.
+key migration.
 
 ## Paper evaluation
 
