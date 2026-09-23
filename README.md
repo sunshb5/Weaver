@@ -11,8 +11,6 @@ and physical-unit autoregressive prediction.
 
 [![WEAVER architecture](assets/weaver_overview.png)](Weaver-overview.pdf)
 
-Click the figure to open the vector PDF.
-
 ## What is included
 
 ```text
