@@ -239,6 +239,26 @@ Checkpoint loading is strict: missing or unexpected parameters terminate the
 run rather than silently producing invalid metrics. Use `--resume-from` when
 invoking `evaluate.py` directly inside an allocation to continue an evaluation.
 
+## Typhoon track case study
+
+As a qualitative test of long-range tropical-cyclone tracking, six storms were
+randomly selected from the 2018 test set where complete model forecasts could
+be paired with IBTrACS best tracks. Storm centers were extracted with the same
+tracking rule for every model, following the Pangu-Weather procedure: search
+for a local sea-level-pressure minimum near the previous center, then screen
+the candidate using 850 hPa vorticity, 200--850 hPa thickness, and 10 m wind.
+
+Trami is shown as a representative case. After 72 h, several forecast tracks
+develop larger deviations or terminate early, while Weaver preserves a
+plausible movement pattern and remains trackable through 240 h. This example
+suggests useful long-lead track continuity, but it is a case study rather than
+a claim of uniformly lowest position error across storms or lead times.
+
+![Typhoon Trami (2018) 0--240 h track comparison](assets/typhoon_trami_2018.png)
+
+*Typhoon Trami (2018), initialized from the same ERA5 state for all models.
+IBTrACS is the verification track; markers are shown every 6 h.*
+
 ## Release validation
 
 The validation job checks configuration/assets, the SDPA fallback, physical
