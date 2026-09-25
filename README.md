@@ -236,23 +236,28 @@ sbatch --export="ALL,DATA_ROOT=/data/weaver_h5,OUTPUT=$PWD/outputs/test_metrics.
 ```
 
 Checkpoint loading is strict: missing or unexpected parameters terminate the
-run rather than silently producing invalid metrics. Use `--resume-from` when
+run to prevent invalid metrics. Use `--resume-from` when
 invoking `evaluate.py` directly inside an allocation to continue an evaluation.
 
 ## Typhoon track case study
 
-As a qualitative test of long-range tropical-cyclone tracking, six storms were
-randomly selected from the 2018 test set where complete model forecasts could
-be paired with IBTrACS best tracks. Storm centers were extracted with the same
-tracking rule for every model, following the Pangu-Weather procedure: search
-for a local sea-level-pressure minimum near the previous center, then screen
-the candidate using 850 hPa vorticity, 200--850 hPa thickness, and 10 m wind.
+Typhoon tracks at different stages are influenced by environmental steering
+flows, intensity changes, and recurvature processes, leading to clear
+differences in forecast difficulty and error growth among individual storms.
+Six storms with complete model forecasts and matching IBTrACS best tracks were
+randomly selected from the 2018 test set: Maria, Jebi, Kong-Rey, Jelawat,
+Trami, and Man-Yi. Following the Pangu-Weather tracking procedure, each storm
+center was identified by searching for a local sea-level-pressure minimum near
+the center at the previous time step and combining this search with 850 hPa
+vorticity, 200--850 hPa thickness, and 10 m wind speed. The same tracking rule
+was applied to all models.
 
-Trami is shown as a representative case. After 72 h, several forecast tracks
-develop larger deviations or terminate early, while Weaver preserves a
-plausible movement pattern and remains trackable through 240 h. This example
-suggests useful long-lead track continuity, but it is a case study rather than
-a claim of uniformly lowest position error across storms or lead times.
+The Trami case is presented below as a representative example. After 72 h,
+the track deviations of several models gradually increase, and some models
+end tracking early. Weaver maintains a plausible movement trend and continues
+tracking through 240 h. Across the six selected cases, these results indicate
+that Weaver has competitive long-range typhoon track forecasting performance,
+with useful track continuity and tracking stability.
 
 ![Typhoon Trami (2018) 0--240 h track comparison](assets/typhoon_trami_2018.png)
 
